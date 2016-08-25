@@ -1,11 +1,3 @@
-buildscript {
-    dependencies {
-        classpath files("/home/cchampeau/DEV/PROJECTS/GITHUB/gradle/subprojects/internal-performance-testing/build/libs/measurement-plugin.jar")
-    }
-}
-
-apply plugin: org.gradle.performance.plugin.MeasurementPlugin
-
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
