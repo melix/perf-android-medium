@@ -1,3 +1,11 @@
+buildscript {
+    dependencies {
+        classpath files("/home/cchampeau/DEV/PROJECTS/GITHUB/gradle/subprojects/internal-performance-testing/build/libs/measurement-plugin.jar")
+    }
+}
+
+apply plugin: org.gradle.performance.plugin.MeasurementPlugin
+
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
@@ -9,5 +17,13 @@ subprojects {
             project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
 	    project.android.lintOptions.abortOnError = false
         }
+    }
+
+    // temporary workaround for
+    // > Could not find method has() for arguments [release] on object of type org.gradle.plugins.signing.SigningExtension.
+    tasks.matching {
+       it.name.startsWith('sign')
+    }.all {
+       enabled = false
     }
 }
